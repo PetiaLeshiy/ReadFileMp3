@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="457.0" prefWidth="372.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="springJDBC.Controller.ControllerMainWindow">
+   <children>
+      <AnchorPane focusTraversable="true" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="372.0" scaleShape="false">
+         <children>
+            <Label alignment="TOP_CENTER" contentDisplay="CENTER" maxHeight="-Infinity" prefHeight="17.0" prefWidth="368.0" text="Укажите папку:" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-10.0">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </Label>
+         </children>
+      </AnchorPane>
+      <HBox alignment="CENTER" prefHeight="38.0" prefWidth="349.0">
+         <children>
+            <TextField fx:id="TF1" alignment="CENTER" prefHeight="25.0" prefWidth="320.0" promptText="TF1" text="Введите путь" />
+            <Button fx:id="BAdd" alignment="CENTER" mnemonicParsing="false" onAction="#addSongFolder" prefHeight="25.0" prefWidth="108.0" text="Добавить" />
+         </children>
+      </HBox>
+      <CheckBox fx:id="CH1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Вложенные папки" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin></CheckBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <TextField fx:id="TF2" alignment="CENTER" prefHeight="25.0" prefWidth="320.0" promptText="TF1" text="Введите автора/название">
+               <HBox.margin>
+                  <Insets bottom="10.0" />
+               </HBox.margin>
+            </TextField>
+            <Button fx:id="FindSong" alignment="CENTER" mnemonicParsing="false" onAction="#Find" prefHeight="25.0" prefWidth="108.0" text="Найти" />
+         </children>
+      </HBox>
+      <Button fx:id="ShowBD" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="368.0" text="Показать содержимое БД" />
+      <TableView prefHeight="160.0" prefWidth="372.0">
+        <columns>
+          <TableColumn fx:id="Col1" prefWidth="75.0" text="C1" />
+          <TableColumn fx:id="Col2" prefWidth="75.0" text="C2" />
+            <TableColumn fx:id="Col3" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="Col4" prefWidth="75.0" text="Column X" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <TextArea fx:id="TextArea" prefHeight="303.0" prefWidth="263.0" wrapText="true" />
+   </children>
+</VBox>
