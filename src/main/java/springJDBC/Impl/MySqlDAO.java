@@ -66,7 +66,7 @@ public class MySqlDAO implements MP3DAO {
 
     @Override
     public List<MP3> getMP3ByTag(String tag) {
-    String sql = "SELECT AuthorTable.author, SongTable.songName, SongTable.songLength  FROM  SongTable INNER JOIN AuthorTable ON SongTable.author = AuthorTable.authorNumber WHERE author LIKE ? OR SongName LIKE ?";
+    String sql = "SELECT SongTable.songName, SongTable.songLength, AuthorTable.author FROM  SongTable inner JOIN AuthorTable ON SongTable.author = AuthorTable.authorNumber WHERE AuthorTable.author LIKE ? OR SongTable.SongName LIKE ?";
     final List<MP3> result = jdbcTemplate.query(sql, new Object[]{tag, tag}, new RowMapper<MP3>() {
         @Override
         public MP3 mapRow(ResultSet resultSet, int i) throws SQLException {
