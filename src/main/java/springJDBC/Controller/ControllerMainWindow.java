@@ -1,10 +1,15 @@
 package springJDBC.Controller;
 
+import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -16,8 +21,7 @@ import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ControllerMainWindow {
 
@@ -35,22 +39,27 @@ public class ControllerMainWindow {
     private TextArea TextArea;
 
     @FXML
-    private TableColumn Col1;
+    private TableView<MP3> tV;
 
     @FXML
-    private TableColumn Col2;
+    private TableColumn id;
 
     @FXML
-    private TableColumn Col3;
+    private TableColumn author;
 
     @FXML
-    private TableColumn Col4;
+    private TableColumn songName;
+
+    @FXML
+    private TableColumn songLength;
 
     @FXML
     private TextField TF2;
 
     @FXML
     private Button FindSong;
+    @FXML
+    private TextField tfDelete;
 
 
     private static MySqlDAO mySqlDAO;
@@ -59,6 +68,13 @@ public class ControllerMainWindow {
     public void initialize(){
         ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
         mySqlDAO = (MySqlDAO) context.getBean("mySqlDAO");
+    }
+
+    @FXML
+    public void deleteSong(){
+        String id = tfDelete.getText();
+        mySqlDAO.delete(id);
+        showBase();
     }
 
 @FXML
@@ -118,12 +134,28 @@ public void addSongFolder(){
 public void Find(){
     String findLine ="%" +  TF2.getText() + "%";
     List<MP3> list = mySqlDAO.getMP3ByTag(findLine);
-    for (MP3 nMP3 : list) {
-        String resultLine = nMP3.getAuthor() + " " + nMP3.getSongName();
-        TextArea.appendText(resultLine + "\n");
-    }
-}
+    ObservableList<MP3> oblIST = FXCollections.observableList(list);
+    id.setCellValueFactory(new PropertyValueFactory<MP3, String>("id"));
+    author.setCellValueFactory(new PropertyValueFactory<MP3,String>("author"));
+    songName.setCellValueFactory(new PropertyValueFactory<MP3,String>("songName"));
+    songLength.setCellValueFactory(new PropertyValueFactory<MP3,String>("songLength"));
+    tV.setItems(oblIST);
+      }
 
+@FXML
+public void showBase () {
+    List<MP3> allBase =  mySqlDAO.showAllBase();
+    ObservableList<MP3> oblIST = FXCollections.observableList(allBase);
+
+    id.setCellValueFactory(new PropertyValueFactory<MP3, String>("id"));
+    author.setCellValueFactory(new PropertyValueFactory<MP3,String>("author"));
+    songName.setCellValueFactory(new PropertyValueFactory<MP3,String>("songName"));
+    songLength.setCellValueFactory(new PropertyValueFactory<MP3,String>("songLength"));
+
+    tV.autosize();
+    tV.setItems(oblIST);
+    TextArea.appendText(allBase.toString());
+    }
 
 
 
@@ -145,4 +177,8 @@ public void Find(){
         }
 
      }
+
+
+
+
 }

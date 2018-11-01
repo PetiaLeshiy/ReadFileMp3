@@ -23,6 +23,7 @@ public class MySqlDAO implements MP3DAO {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+
  private Integer findThisAuthor(String name) {
     int number;
      String sqlGetAuthor = "Select authorNumber FROM authorTable WHERE author = ? ";
@@ -60,21 +61,35 @@ public class MySqlDAO implements MP3DAO {
         System.out.println(number + " " + mp3.getSongName() + " " + mp3.getSongLength());
     }
 
-    public void delete(MP3 mp3) {
-
+    public void delete(String id) {
+    String sql = "DELETE FROM songTable WHERE id = ?";
+    int idInt = Integer.parseInt(id);
+        System.out.println(jdbcTemplate.update(sql, idInt));
     }
 
     @Override
     public List<MP3> getMP3ByTag(String tag) {
-    String sql = "SELECT SongTable.songName, SongTable.songLength, AuthorTable.author FROM  SongTable inner JOIN AuthorTable ON SongTable.author = AuthorTable.authorNumber WHERE AuthorTable.author LIKE ? OR SongTable.SongName LIKE ?";
+    String sql = "SELECT SongTable.id, SongTable.songName, SongTable.songLength, AuthorTable.author FROM  SongTable inner JOIN AuthorTable ON SongTable.author = AuthorTable.authorNumber WHERE AuthorTable.author LIKE ? OR SongTable.SongName LIKE ?";
     final List<MP3> result = jdbcTemplate.query(sql, new Object[]{tag, tag}, new RowMapper<MP3>() {
         @Override
         public MP3 mapRow(ResultSet resultSet, int i) throws SQLException {
-            return new MP3(resultSet.getString("AuthorTable.author"), resultSet.getString("SongTable.songName"), resultSet.getString("SongTable.songLength"));
+            return new MP3(resultSet.getString("SongTable.id"), resultSet.getString("AuthorTable.author"), resultSet.getString("SongTable.songName"), resultSet.getString("SongTable.songLength"));
         }
     });
         return result;
     }
+
+    @Override
+    public List<MP3> showAllBase() {
+        String sql = "SELECT SongTable.id, SongTable.songName, SongTable.songLength, AuthorTable.author FROM SongTable INNER JOIN AuthorTable ON SongTable.author = AuthorTable.authorNumber ORDER BY SongTable.id";
+    final List<MP3> result = jdbcTemplate.query(sql, new RowMapper<MP3>() {
+        @Override
+        public MP3 mapRow(ResultSet resultSet, int i) throws SQLException {
+            return new MP3(resultSet.getString("SongTable.id"), resultSet.getString("AuthorTable.author"), resultSet.getString("SongTable.songName"), resultSet.getString("SongTable.songLength"));
+        }
+    });
+    return result;
+}
 
 
 }
