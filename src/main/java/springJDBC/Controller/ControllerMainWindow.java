@@ -7,18 +7,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.tritonus.share.sampled.file.TAudioFileFormat;
 import springJDBC.DaoObject.MP3;
 import springJDBC.Impl.MySqlDAO;
 
-import javax.sound.sampled.AudioFileFormat;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public class ControllerMainWindow {
 
