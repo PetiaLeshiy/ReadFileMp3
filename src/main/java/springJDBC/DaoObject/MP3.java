@@ -1,5 +1,14 @@
 package springJDBC.DaoObject;
 
+import org.tritonus.share.sampled.file.TAudioFileFormat;
+
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
 public class MP3 {
     public String getId() {
         return id;
@@ -68,5 +77,29 @@ public class MP3 {
         newName.append(" ");
         newName.append(name[0]);
         return newName.toString();}
-        return mp3.getAuthor();}
+        return mp3.getAuthor();
+    }
+
+    public static String getDurationWithMp3Spi(String name) throws UnsupportedAudioFileException, IOException {
+        File file = new File(name);
+        AudioFileFormat fileFormat = AudioSystem.getAudioFileFormat(file);
+        if (fileFormat instanceof TAudioFileFormat) {
+            Map<?, ?> properties = ((TAudioFileFormat) fileFormat).properties();
+            String key = "duration";
+            Long microseconds = (Long) properties.get(key);
+            int mili = (int) (microseconds / 1000);
+            int sec = (mili / 1000) % 60;
+            int min = (mili / 1000) / 60;
+            String songLong = min + ":" + sec;
+            return songLong;
+        } else {
+            return null;
+        }
+
+    }
+
+
+
+
+
 }

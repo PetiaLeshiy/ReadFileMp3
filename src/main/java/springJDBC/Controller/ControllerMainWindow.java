@@ -103,7 +103,7 @@ public void addSongFolder(){
                 for (String name2 : nameMP3) {
                     try {
                         String path = pathFolder + "\\" + name2;
-                        duration = getDurationWithMp3Spi(path);
+                        duration = MP3.getDurationWithMp3Spi(path);
                         TextArea.appendText(name2 +  " (" + duration   + ")" + "\n");
                         String[] authorAndSong = name2.split("-");
                         mp3 = new MP3(authorAndSong[0].trim(), authorAndSong[1].trim(), duration);
@@ -153,29 +153,5 @@ public void showBase () {
     tV.setItems(oblIST);
     TextArea.appendText(allBase.toString());
     }
-
-
-
-
-    private static String getDurationWithMp3Spi(String name) throws UnsupportedAudioFileException, IOException {
-        File file = new File(name);
-        AudioFileFormat fileFormat = AudioSystem.getAudioFileFormat(file);
-        if (fileFormat instanceof TAudioFileFormat) {
-            Map<?, ?> properties = ((TAudioFileFormat) fileFormat).properties();
-            String key = "duration";
-            Long microseconds = (Long) properties.get(key);
-            int mili = (int) (microseconds / 1000);
-            int sec = (mili / 1000) % 60;
-            int min = (mili / 1000) / 60;
-            String songLong = min + ":" + sec;
-            return songLong;
-        } else {
-            return null;
-        }
-
-     }
-
-
-
 
 }

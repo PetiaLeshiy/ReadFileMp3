@@ -18,7 +18,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <HBox alignment="CENTER" prefHeight="38.0" prefWidth="349.0">
+      <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="38.0" prefWidth="349.0">
          <children>
             <TextField fx:id="TF1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="320.0" promptText="TF1" text="Введите путь" />
             <Button fx:id="BAdd" alignment="CENTER" mnemonicParsing="false" onAction="#addSongFolder" prefHeight="25.0" prefWidth="108.0" text="Добавить" />
@@ -28,7 +28,7 @@
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin></CheckBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="100.0" prefWidth="200.0">
          <children>
             <TextField fx:id="TF2" alignment="CENTER" maxHeight="25.0" prefHeight="25.0" prefWidth="320.0" promptText="TF1" text="Введите автора/название">
                <HBox.margin>
@@ -50,7 +50,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TextArea fx:id="TextArea" maxHeight="303.0" maxWidth="263.0" prefHeight="303.0" prefWidth="263.0" wrapText="true" />
+      <TextArea fx:id="TextArea" maxHeight="263.0" maxWidth="263.0" prefHeight="303.0" prefWidth="263.0" wrapText="true" />
       <HBox alignment="CENTER" prefHeight="38.0" prefWidth="349.0">
          <children>
             <TextField fx:id="tfDelete" alignment="CENTER" prefHeight="25.0" prefWidth="320.0" promptText="TF1" text="Введите id удаляемого объекта" />
